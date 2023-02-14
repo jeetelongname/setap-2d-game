@@ -1,3 +1,4 @@
 | name                  | UP number |
 |-----------------------+-----------|
 | Jeetaditya Chatterjee | up2063130 |
+| Bradley Edmondson     | up2015336 |
