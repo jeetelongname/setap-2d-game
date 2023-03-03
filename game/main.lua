@@ -1,16 +1,27 @@
-function love.load()
-    x, y, w, h = 20, 20, 60, 20
-end
+local steps = {
+    -- this works as require essentually resolves
+    -- to the modules return value
+    require "game.title",
+}
 
--- Increase the size of the rectangle every frame.
-function love.update(dt)
-    w = w + 1
-    h = h + 1
+Types = require("lib.types")
+
+local current = Types.modules.title
+
+function love.update()
+    if love.keyboard.isDown('q') then
+        love.event.push('quit')
+    end
+
+    local nextModule = steps[current].update()
+    if nextModule == Types.modules.quit then
+        love.event.push("quit")
+    else
+        current = nextModule
+    end
 end
 
 -- Draw a coloured rectangle.
 function love.draw()
-    -- In versions prior to 11.0, color component values are (0, 102, 102)
-    love.graphics.setColor(0, 0.4, 0.4)
-    love.graphics.rectangle("fill", x, y, w, h)
+    steps[current].draw()
 end
