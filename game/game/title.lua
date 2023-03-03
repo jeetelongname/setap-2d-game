@@ -1,5 +1,7 @@
 M = {}
 
+Types = require("lib.types")
+
 local message = "hello"
 
 M.update = function()
@@ -11,7 +13,14 @@ M.update = function()
     message = "hello"
   end
 
-  return love.keyboard.isDown("n")
+  -- stub until a proper predicate is run
+  local pred = love.keyboard.isDown("n")
+
+  if pred then
+    return Types.modules.quit
+  else
+    return Types.modules.title
+  end
 
 end
 

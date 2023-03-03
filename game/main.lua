@@ -4,16 +4,20 @@ local steps = {
     require "game.title",
 }
 
-local current = 1
--- Increase the size of the rectangle every frame.
+Types = require("lib.types")
+
+local current = Types.modules.title
+
 function love.update()
     if love.keyboard.isDown('q') then
         love.event.push('quit')
     end
 
-    local isDone = steps[current].update()
-    if isDone then
-        current = current + 1
+    local nextModule = steps[current].update()
+    if nextModule == Types.modules.quit then
+        love.event.push("quit")
+    else
+        current = nextModule
     end
 end
 
