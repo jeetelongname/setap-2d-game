@@ -7,9 +7,10 @@ function Player:new(name)
     local health = 100
     local inventory = {}
 
-    for i = 1, 20 do --this isn't setting up the inventory properly
+    for i = 1,20 do
         inventory[i] = -1
     end
+
 
     local obj = {
 
@@ -44,7 +45,7 @@ function Player:new(name)
         end,
 
         get_inventory = function(inventoryPosition)
-            return inventory.inventoryPosition
+            return inventory[inventoryPosition]
         end,
 
         get_inventory_all = function()
@@ -52,9 +53,10 @@ function Player:new(name)
         end,
 
         set_inventory = function(item)--checks for empty spaces in the inventory, and puts the item in the first space it finds
+
             for i = 1, #inventory do
-                if inventory.i == -1 then
-                    inventory.i = item
+                if inventory[i] == -1 then
+                    inventory[i] = item
                     return
                 end
             end
@@ -75,5 +77,6 @@ end
 -- print(Player1.get_health())
 -- Player1.set_position(30, 30)
 -- print(Player1.get_position().x)
--- print(Player1.set_inventory('sword'))
--- print(Player1.get_inventory(6))
+
+-- Player1.set_inventory('sword')
+-- print(Player1.get_inventory(1))
