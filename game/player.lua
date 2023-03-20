@@ -8,7 +8,7 @@ function Player:new(name)
     local inventory = {}
 
     for i = 1, 20 do --this isn't setting up the inventory properly
-        inventory.i = -1
+        inventory[i] = -1
     end
 
     local obj = {
