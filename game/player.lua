@@ -26,7 +26,7 @@ function Player:new(name)
             health = health + changeHealthBy
         end,
 
-        set_health = function(seHealthTo)
+        set_health = function(setHealthTo)
             health = setHealthTo
         end,
 
