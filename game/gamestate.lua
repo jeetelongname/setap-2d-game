@@ -26,8 +26,10 @@ function Gamestate:new(map, player)
             player = setPlayer
         end
 
-}
-setmetatable(obj, self)
-self.__index = self
+    }
+    setmetatable(obj, self)
+    self.__index = self
 
 end
+
+return Gamestate
