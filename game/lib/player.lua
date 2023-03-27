@@ -1,21 +1,25 @@
+require "lib/inventory"
+
 Player = {}
 
-function Player:new(name)
+function Player:new(name, movementSpeed, sprite)
 
     local name = name
-    local position = {x = 10, y = 10}
+    local position = {x = 100, y = 100}
     local health = 100
-    local inventory = {}
-
-    for i = 1,20 do
-        inventory[i] = -1
-    end
-
+    local movementSpeed = movementSpeed
+    local sprite = sprite
 
     local obj = {
 
+        inventory = Inventory:new(),
+
         get_name = function()
             return name
+        end,
+
+        get_sprite = function()
+            return sprite
         end,
 
         get_health = function()
@@ -44,25 +48,16 @@ function Player:new(name)
             position.y = y
         end,
 
-        get_inventory = function(inventoryPosition)
-            return inventory[inventoryPosition]
+        get_movementSpeed = function()
+            return movementSpeed
         end,
 
-        get_inventory_all = function()
-            return inventory
+        change_movementSpeed = function(value)
+            movementSpeed = movementSpeed + value
         end,
 
-        set_inventory = function(item)--checks for empty spaces in the inventory, and puts the item in the first space it finds
-
-            for i = 1, #inventory do
-                if inventory[i] == -1 then
-                    inventory[i] = item
-                    return
-                end
-            end
-
-            return 'no space in inventory'
-
+        set_movementSpeed = function(value)
+            movementSpeed = value
         end
 
     }
@@ -78,5 +73,6 @@ end
 -- Player1.set_position(30, 30)
 -- print(Player1.get_position().x)
 
--- Player1.set_inventory('sword')
--- print(Player1.get_inventory(1))
+-- Player1.inventory.set_inventory('sword')
+-- print(Player1.inventory.get_inventory(1))
+-- print(inventory)
