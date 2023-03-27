@@ -1,4 +1,4 @@
-require "lib/inventory"
+require "lib.inventory"
 
 Player = {}
 
