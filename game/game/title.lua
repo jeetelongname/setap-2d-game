@@ -2,6 +2,7 @@ M = {}
 
 Types = require("lib.types")
 Button = require("lib.button")
+Mapthings = require("lib.map")
 Message = "hello"
 
 -- when clicked, return true to start the game
@@ -29,6 +30,8 @@ M.update = function()
     -- otherwise keep showing the title
     return Types.modules.title
   end
+  
+  
 end
 
 M.draw = function()
