@@ -1,4 +1,4 @@
-M = {}
+local M = {}
 
 Types = require("lib.types")
 Button = require("lib.button")
@@ -30,8 +30,6 @@ M.update = function()
     -- otherwise keep showing the title
     return Types.modules.title
   end
-  
-  
 end
 
 M.draw = function()
