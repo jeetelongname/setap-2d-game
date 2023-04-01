@@ -50,4 +50,4 @@ function Tiles:setType(type)
     self.type = type
 end
 
-return { Map = Map, Tiles = Tiles }
+return { TilesType = TilesType, Map = Map, Tiles = Tiles }
