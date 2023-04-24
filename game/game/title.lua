@@ -25,7 +25,7 @@ M.update = function()
 
   if pred then
     -- next module
-    return Types.modules.quit
+    return Types.modules.map
   else
     -- otherwise keep showing the title
     return Types.modules.title

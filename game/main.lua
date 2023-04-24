@@ -2,6 +2,7 @@ local steps = {
     -- this works as require essentually resolves
     -- to the modules return value
     require "game.title",
+    require "game.map"
 }
 
 Types = require("lib.types")
