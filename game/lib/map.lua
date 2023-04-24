@@ -14,7 +14,6 @@ function Map:new()
         end
     end
 
-
     setmetatable(obj, self)
     self.__index = self
 
@@ -22,23 +21,38 @@ function Map:new()
 end
 
 TilesType = {
-    grass = 0,
-    water = 1,
-    beach = 2
+    grass = 1,
+    water = 2,
+    beach = 3,
+    snow  = 4
 }
 
+TileColour = {
+    { 0, 1, 0 },
+    { 0, 1, 1 },
+    { 1, 1, 0 },
+    { 1, 1, 1 }
+}
 
-function Map:tiles()
-    return self.tiles
+function Map:get(row, column)
+    if column == nil then
+        return self.tiles[row]
+    else
+        return self.tiles[row][column]
+    end
+end
+
+function Map:set(row, column, tile)
+    self.tiles[row][column] = tile
 end
 
 function Tiles:new()
     local obj = {
         item = nil,
-        character = nil,
-        type = TilesType.grass
+        character = false,
+        type = TilesType.grass,
+        noise = nil
     }
-
 
     setmetatable(obj, self)
     self.__index = self
@@ -50,4 +64,4 @@ function Tiles:setType(type)
     self.type = type
 end
 
-return { TilesType = TilesType, Map = Map, Tiles = Tiles }
+return { TilesType = TilesType, Map = Map, Tiles = Tiles, TileColour = TileColour }
