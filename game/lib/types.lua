@@ -1,8 +1,9 @@
-M = {}
+local M = {}
 
 M.modules = {
-  quit = -1,
-  title = 1
+  quit  = -1,
+  title = 1,
+  map   = 2
 }
 
 M.Point = {}
@@ -20,6 +21,10 @@ end
 
 function M.Point:getPosition()
   return self.x, self.y
+end
+
+function M.Point:toString()
+  return "x: " .. tostring(self.x) .. " y: " .. tostring(self.y)
 end
 
 return M
