@@ -46,8 +46,6 @@ function M.update(_state)
   else
     done = true
   end
-  -- local thisRow = Json.encode(map.tiles, { indent = true })
-  -- print(thisRow)
 
   if done and love.mouse.isDown(1) then
     return Types.modules.game, { map = map, gamestate = nil }
@@ -65,7 +63,7 @@ function M.draw()
       local tileColour = Maptools.TileColour[tileType]
       love.graphics.setColor(tileColour)
       love.graphics.rectangle("fill", (x - 1) * tileSize, (y - 1) * tileSize, tileSize - tileBorder,
-      tileSize - tileBorder)
+        tileSize - tileBorder)
     end
   end
 end
