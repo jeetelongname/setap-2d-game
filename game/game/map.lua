@@ -12,9 +12,6 @@ local map   = Maptools.Map:new()
 -- row is the current row we are on
 local row   = 1
 
--- tiles is the grid we are working on.
-local tiles = map.tiles
-
 -- this is the base random numbers that seed the noise.
 local baseX = 10000 * love.math.random()
 local baseY = 10000 * love.math.random()
@@ -23,17 +20,12 @@ local baseY = 10000 * love.math.random()
 local gradX = .1
 local gradY = .05
 
-function M.update()
+function M.update(_state)
   local done = false
 
-  if row ~= #tiles then
-    row = row + 1
-  else
-    done = true
-  end
   local y = row
 
-  for x, tile in ipairs(tiles[row]) do
+  for x, tile in ipairs(map.tiles[row]) do
     tile.noise = love.math.noise(baseY + gradX * y, baseX + gradY * x)
 
     if tile.noise >= 0 and tile.noise < 0.3 then
@@ -45,12 +37,20 @@ function M.update()
     else
       tile.type = Maptools.TilesType.snow
     end
+
+    tile.is_noised = true
+  end
+
+  if row ~= #map.tiles then
+    row = row + 1
+  else
+    done = true
   end
 
   if done and love.mouse.isDown(1) then
-    return Types.modules.quit
+    return Types.modules.game, { map = map, gamestate = nil }
   else
-    return Types.modules.map
+    return Types.modules.map, {}
   end
 end
 
@@ -62,7 +62,8 @@ function M.draw()
       local tileType = tile.type
       local tileColour = Maptools.TileColour[tileType]
       love.graphics.setColor(tileColour)
-      love.graphics.rectangle("fill", x * tileSize, y * tileSize, tileSize - tileBorder, tileSize - tileBorder)
+      love.graphics.rectangle("fill", (x - 1) * tileSize, (y - 1) * tileSize, tileSize - tileBorder,
+        tileSize - tileBorder)
     end
   end
 end

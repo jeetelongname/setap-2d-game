@@ -3,7 +3,8 @@ local M = {}
 M.modules = {
   quit  = -1,
   title = 1,
-  map   = 2
+  map   = 2,
+  game  = 3
 }
 
 M.Point = {}

@@ -1,15 +1,18 @@
-Map = {}
-Tiles = {}
+local Map = {}
+local Tiles = {}
+
+local Json = require("deps.dkjson")
 
 function Map:new()
     local obj = {
         tiles = {},
-        size = 100
+        size = 100,
+        is_generated = false
     }
 
-    for i = 1, 100 do
+    for i = 1, obj.size do
         obj.tiles[i] = {}
-        for j = 1, 100 do
+        for j = 1, obj.size do
             obj.tiles[i][j] = Tiles:new()
         end
     end
@@ -35,15 +38,15 @@ TileColour = {
 }
 
 function Map:get(row, column)
-    if column == nil then
-        return self.tiles[row]
-    else
-        return self.tiles[row][column]
-    end
+    return self.tiles[row][column]
 end
 
 function Map:set(row, column, tile)
     self.tiles[row][column] = tile
+end
+
+function Map:toString()
+    return "stub"
 end
 
 function Tiles:new()
@@ -51,7 +54,8 @@ function Tiles:new()
         item = nil,
         character = false,
         type = TilesType.grass,
-        noise = nil
+        noise = nil,
+        is_noised = false
     }
 
     setmetatable(obj, self)
@@ -60,8 +64,8 @@ function Tiles:new()
     return obj
 end
 
-function Tiles:setType(type)
-    self.type = type
+function Tiles:toString()
+    return Json.encode(self)
 end
 
 return { TilesType = TilesType, Map = Map, Tiles = Tiles, TileColour = TileColour }

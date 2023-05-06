@@ -19,16 +19,16 @@ local messageButton = Button:new { text = { { 0, 0, 0 }, "toggle greeting" }, x 
   end }
 
 
-M.update = function()
+M.update = function(_state)
   local pred = startButton:check()
   messageButton:check()
 
   if pred then
     -- next module
-    return Types.modules.map
+    return Types.modules.map, {}
   else
     -- otherwise keep showing the title
-    return Types.modules.title
+    return Types.modules.title, {}
   end
 end
 
