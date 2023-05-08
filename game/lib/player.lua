@@ -1,4 +1,5 @@
 require "lib.inventory"
+json = require "deps.dkjson"
 
 local Player = {}
 
@@ -11,6 +12,9 @@ function Player:new(iname, imovementSpeed, isprite)
 
     local obj = {
         inventory = Inventory:new(),
+        encode_player = function()
+            return json.encode({name, movementSpeed, sprite})
+        end,
         get_name = function()
             return name
         end,
