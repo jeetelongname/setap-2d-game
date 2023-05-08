@@ -6,13 +6,13 @@ function Inventory:new()
 
     local inventory = {}
 
-    for i = 1, 20 do
+    for i = 1, 20 do -- creates a table (the players' inventory) with 20 slots with the value -1, to mark that the slot is empty
         inventory[i] = -1
     end
 
     local obj = {
 
-        get_inventory = function(inventoryPosition)
+        get_inventory = function(inventoryPosition) -- returns the item at a certain position in the inventory, and how many of that item are in that slot
             if inventory[inventoryPosition] ~= -1 then
                 return inventory[inventoryPosition][1], inventory[inventoryPosition][2]
             else
@@ -41,7 +41,7 @@ function Inventory:new()
 
         end,
 
-        remove_inventory = function(item)
+        remove_inventory = function(item) -- removes a certain item from the inventory
 
             for i = 1, #inventory do
                 if inventory[i] == -1 then
