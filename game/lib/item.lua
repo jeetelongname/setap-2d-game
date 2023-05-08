@@ -27,6 +27,7 @@ function Item:new(name, isStackable, pointsValue)
 
 end
 
+-- below are all the objects in the game and their attributes. They all inherit from the item class
 
 Metal = {}
 
