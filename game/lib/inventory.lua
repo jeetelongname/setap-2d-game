@@ -1,17 +1,23 @@
+require "lib.item"
+
 Inventory = {}
 
 function Inventory:new()
 
     local inventory = {}
 
-    for i = 1, 20 do
+    for i = 1, 20 do -- creates a table (the players' inventory) with 20 slots with the value -1, to mark that the slot is empty
         inventory[i] = -1
     end
 
     local obj = {
 
-        get_inventory = function(inventoryPosition)
-            return inventory[inventoryPosition]
+        get_inventory = function(inventoryPosition) -- returns the item at a certain position in the inventory, and how many of that item are in that slot
+            if inventory[inventoryPosition] ~= -1 then
+                return inventory[inventoryPosition][1], inventory[inventoryPosition][2]
+            else
+                return inventory[inventoryPosition]
+            end
         end,
 
         get_inventory_all = function()
@@ -23,7 +29,10 @@ function Inventory:new()
             for i = 1, #inventory do
 
                 if inventory[i] == -1 then
-                    inventory[i] = item
+                    inventory[i] = {1, item}
+                    return
+                elseif (inventory[i][2].get_name() == item.get_name()) and (item.get_isStackable()) then
+                    inventory[i] = {inventory[i][1] + 1, item}
                     return
                 end
             end
@@ -32,13 +41,22 @@ function Inventory:new()
 
         end,
 
-        remove_inventory = function(item)
+        remove_inventory = function(item) -- removes a certain item from the inventory
 
             for i = 1, #inventory do
-                if inventory[i] == item then
-                    inventory[i] = -1
-                    return
+                if inventory[i] == -1 then
+                    goto continue
                 end
+                if inventory[i][2].get_name() == item.get_name() then
+                    if inventory[i][1] > 1 then
+                        inventory[i][1] = inventory[i][1] - 1
+                        return
+                    else
+                        inventory[i] = -1
+                        return
+                    end
+                end
+                ::continue::
             end
 
             return 'couldnt find item'
@@ -53,10 +71,3 @@ function Inventory:new()
     return setmetatable(obj, self)
 
 end
-
-Inventory1 = Inventory:new()
-
--- Inventory1.set_inventory('sword')
--- print(Inventory1.get_inventory(1))
--- Inventory1.remove_inventory('sword')
--- print(Inventory1.get_inventory(1))
