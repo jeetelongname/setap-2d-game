@@ -27,7 +27,13 @@ local function outOfBound(pos)
   local inX = 0 <= x and x <= mapSize - 1
   local inY = 0 <= y and y <= mapSize - 1
 
-  return not (inX and inY)
+  local tile = gamestate.get_map():get(y + 1, x + 1)
+  local onWater = false
+  if tile then
+    onWater = tile.type == Maptools.TilesType.water
+  end
+
+  return not (inX and inY and not onWater)
 end
 
 M.update = function(state)
@@ -97,6 +103,7 @@ M.draw = function()
 
       local tile = gamestate:get_map():get(coords.y + 1, coords.x + 1)
 
+      -- set the current tile colour
       if tile then
         if tile.character then
           love.graphics.setColor(gamestate:get_player():get_sprite())
