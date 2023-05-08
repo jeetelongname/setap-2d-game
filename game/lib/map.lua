@@ -38,7 +38,12 @@ TileColour = {
 }
 
 function Map:get(row, column)
-    return self.tiles[row][column]
+    local thisRow = self.tiles[row]
+    if thisRow == nil then
+        return
+    else
+        return thisRow[column]
+    end
 end
 
 function Map:set(row, column, tile)

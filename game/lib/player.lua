@@ -2,12 +2,12 @@ require "lib.inventory"
 
 local Player = {}
 
-function Player:new(name, movementSpeed, sprite)
-    local name = name
+function Player:new(iname, imovementSpeed, isprite)
+    local name = iname
     local position = { x = 50, y = 50 }
     local health = 100
-    local movementSpeed = movementSpeed
-    local sprite = sprite
+    local movementSpeed = imovementSpeed
+    local sprite = isprite
 
     local obj = {
         inventory = Inventory:new(),
