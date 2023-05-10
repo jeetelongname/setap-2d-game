@@ -86,6 +86,14 @@ function Playertest:testPosition()
   lu.assertEquals({ self.player.get_position().x, self.player.get_position().y }, { 0, 0 })
 end
 
+function Playertest:testInventory()
+  testList = {}
+  for i = 1, 20 do
+    testList[i] = -1
+  end
+  lu.assertEquals(self.player.inventory.get_inventory_all(), 
+end
+  
 -- visually inspect this one
 function Playertest:testParsePlayer()
   lu.assertEquals(self.player.parsePlayer(self.player.toString()), self.player)
