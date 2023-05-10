@@ -1,31 +1,45 @@
 local M = {}
 
-Types = require("lib.types")
-Button = require("lib.button")
-Mapthings = require("lib.map")
-Message = "hello"
+local Types = require("lib.types")
+local Button = require("lib.button")
+local Save = require("lib.savefile")
 
+local black = { 0, 0, 0 }
 -- when clicked, return true to start the game
-local startButton = Button:new { text = { { 0, 0, 0 }, "Start Game" }, x = 300, y = 250 }
+local startButton = Button:new { text = { black, "Start Game" }, x = 300, y = 250 }
 
 -- this button toggles a message, its means to be a bit more of a full represenation of how to use the buttons
-local messageButton = Button:new { text = { { 0, 0, 0 }, "toggle greeting" }, x = 300, y = 310,
-  callback = function()
-    if Message == "hello" then
-      Message = "hi"
-    else
-      Message = "hello"
-    end
-  end }
+local loadButton = Button:new { text = { black, "Load last game" }, x = 300, y = 320 }
 
+local quitButton = Button:new { text = { black, "Exit" }, x = 300, y = 390 }
 
-M.update = function(_state)
-  local pred = startButton:check()
-  messageButton:check()
+M.update = function(state)
+  local start = state.start or startButton:check()
+  local load = loadButton:check()
+  local quit = quitButton:check()
 
-  if pred then
-    -- next module
+  if start then
+    -- generate a new map
     return Types.modules.map, {}
+  elseif load then
+    -- load a game
+    local gstate, error = Save.LoadGame()
+
+    -- handle an error by just starting a new game
+    if error then
+      love.window.showMessageBox(
+        "Error when loading save",
+        tostring(error) .. " Starting new game",
+        "info",
+        true
+      )
+
+      return Types.modules.title, { start = true }
+    end
+    -- jump into the game module with the loaded state if all is well
+    return Types.modules.game, { gamestate = gstate }
+  elseif quit then
+    return Types.modules.quit, {}
   else
     -- otherwise keep showing the title
     return Types.modules.title, {}
@@ -35,11 +49,10 @@ end
 M.draw = function()
   -- game title
   love.graphics.print("Survival Game", 300, 200, 0, 2, 2)
-  -- greeting message
-  love.graphics.print(Message, 100, 100)
   -- draw buttons
   startButton:draw()
-  messageButton:draw()
+  loadButton:draw()
+  quitButton:draw()
 end
 
 return M

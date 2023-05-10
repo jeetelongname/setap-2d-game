@@ -4,6 +4,7 @@ local Types = require("lib.types")
 local Gamestate = require("lib.gamestate")
 local Player = require("lib.player")
 local Maptools = require("lib.map")
+local Save = require("lib.savefile")
 
 local gamestate = Gamestate:new(Maptools.Map:new(), Player:new("stub", 1, nil))
 
@@ -36,9 +37,31 @@ function M.private.outOfBound(pos)
   return not (inX and inY and not onWater)
 end
 
-M.update = function(state)
-  local pred = true -- quit predicate, yet to be sorted
+function M.private.performQuit()
+  -- we only quit when the user presses "escape"
+  if not love.keyboard.isDown("escape") then
+    return false
+  end
 
+  local button = love.window.showMessageBox(
+    "Are you sure?",
+    "Are you sure you want to quit? your progress will be saved",
+    { "yes", "yes but don't save", "no" },
+    "info",
+    true
+  )
+
+  if button == 1 then
+    Save.Savefile(gamestate)
+    return true
+  elseif button == 2 then
+    return true
+  end
+
+  return false
+end
+
+M.update = function(state)
   -- init gamestate for this loop
   if state.gamestate then
     gamestate = Gamestate:new(state.gamestate.map, state.gamestate.player)
@@ -46,6 +69,12 @@ M.update = function(state)
     local map = state.map
     local player = Player:new("stub", nil, { 1, 0.5, 0.5 })
     gamestate = Gamestate:new(map, player)
+  end
+
+  local quit = M.private.performQuit()
+
+  if quit then
+    return Types.modules.quit, {}
   end
 
   -- handle movement
@@ -80,11 +109,7 @@ M.update = function(state)
   yMin = pPos.y - halfMapTiles
 
   -- get ready for next loop
-  if pred then
-    return Types.modules.game, { gamestate = gamestate:dump() }
-  else
-    return Types.modules.quit, {}
-  end
+  return Types.modules.game, { gamestate = gamestate:dump() }
 end
 
 M.draw = function()

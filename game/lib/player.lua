@@ -1,5 +1,5 @@
-require "lib.inventory"
-json = require "deps.dkjson"
+require("lib.inventory")
+local json = require("deps.dkjson")
 
 local Player = {}
 
@@ -13,7 +13,7 @@ function Player:new(iname, imovementSpeed, isprite)
     local obj = {
         inventory = Inventory:new(),
         encode_player = function()
-            return json.encode({name, movementSpeed, sprite})
+            return json.encode({ name, movementSpeed, sprite })
         end,
         get_name = function()
             return name
@@ -49,10 +49,29 @@ function Player:new(iname, imovementSpeed, isprite)
         end,
         set_movementSpeed = function(value)
             movementSpeed = value
+        end,
+        toString = function()
+            return json.encode {
+                name = name,
+                position = position,
+                health = health,
+                movementSpeed = movementSpeed,
+                sprite = sprite,
+            }
         end
     }
     self.__index = self
     return setmetatable(obj, self)
+end
+
+function Player.parsePlayer(playerstr)
+    local playert = json.decode(playerstr)
+    local player = Player:new(playert.name, playert.movementSpeed, playert.sprite)
+    player.set_health(playert.health)
+    local pos = playert.position
+    player.set_position(pos.x, pos.y)
+
+    return player
 end
 
 return Player

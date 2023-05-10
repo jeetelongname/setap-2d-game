@@ -5,7 +5,7 @@ local steps = {
     require("game.map"),
     require("game.game")
 }
-local json = require("deps.dkjson")
+
 local Types = require("lib.types")
 
 local current = Types.modules.title
@@ -15,10 +15,6 @@ local state = {}
 local nextState = {}
 
 function love.update()
-    if love.keyboard.isDown('q') then
-        love.event.push('quit')
-    end
-
     nextModule, nextState = steps[current].update(state)
     if nextModule == Types.modules.quit then
         love.event.push("quit")
