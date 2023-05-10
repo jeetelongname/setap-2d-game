@@ -68,7 +68,8 @@ function Player.parsePlayer(playerstr)
     local playert = json.decode(playerstr)
     local player = Player:new(playert.name, playert.movementSpeed, playert.sprite)
     player.set_health(playert.health)
-    player.set_position(unpack(playert.position))
+    local pos = playert.position
+    player.set_position(pos.x, pos.y)
 
     return player
 end
