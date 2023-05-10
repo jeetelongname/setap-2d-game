@@ -1,7 +1,7 @@
 local lu = require("deps.luaunit")
 local json = require("deps.dkjson")
 local Maptools = require("lib.map")
-local Playertools = require("lib.player")
+local Player = require("lib.player")
 
 MapTest = {}
 function MapTest:setup()
@@ -33,7 +33,7 @@ end
 
 Playertest = {}
 function Playertest:setup()
-  self.player = Playertools.Player:new("test", 5, {0, 244, 65})
+  self.player = Player:new("test", 5, {0, 244, 65})
 end
 
 function Playertest:testName()
