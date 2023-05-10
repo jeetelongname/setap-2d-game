@@ -12,9 +12,12 @@ local startButton = Button:new { text = { black, "Start Game" }, x = 300, y = 25
 -- this button toggles a message, its means to be a bit more of a full represenation of how to use the buttons
 local loadButton = Button:new { text = { black, "Load last game" }, x = 300, y = 320 }
 
+local quitButton = Button:new { text = { black, "Exit" }, x = 300, y = 390 }
+
 M.update = function(state)
   local start = state.start or startButton:check()
   local load = loadButton:check()
+  local quit = quitButton:check()
 
   if start then
     -- generate a new map
@@ -33,6 +36,8 @@ M.update = function(state)
     end
     -- jump into the game module with the loaded state if all is well
     return Types.modules.game { gamestate = gstate }
+  elseif quit then
+    return Types.modules.quit, {}
   else
     -- otherwise keep showing the title
     return Types.modules.title, {}
@@ -45,6 +50,7 @@ M.draw = function()
   -- draw buttons
   startButton:draw()
   loadButton:draw()
+  quitButton:draw()
 end
 
 return M
