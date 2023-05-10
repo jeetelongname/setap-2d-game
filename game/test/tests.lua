@@ -2,6 +2,21 @@ local lu = require("deps.luaunit")
 local json = require("deps.dkjson")
 local Maptools = require("lib.map")
 local Player = require("lib.player")
+local Button = require("lib.button")
+
+-- a hack to get tests to run
+love = {
+  graphics = {
+    getDimensions = function()
+      return 100, 100
+    end
+  },
+  mouse = {
+    getPosition = function()
+      return 50, 50
+    end
+  }
+}
 
 MapTest = {}
 function MapTest:setup()
@@ -12,6 +27,7 @@ function MapTest:testLength()
   lu.assertEquals(#self.map.tiles, 100)
 end
 
+-- Visually inspect this one.
 function MapTest:testTileStr()
   local tile = self.map:get(1, 1)
   lu.assertEquals(tile:toString(),
@@ -29,11 +45,13 @@ function Gametest:testBound()
 
   lu.assertEquals(outOfBound { x = 101, y = 101 }, true)
   lu.assertEquals(outOfBound { x = 0, y = 0 }, false)
+  lu.assertEquals(outOfBound { x = 101, y = 0 }, true)
+  lu.assertEquals(outOfBound { x = 50, y = 50 }, false)
 end
 
 Playertest = {}
 function Playertest:setup()
-  self.player = Player:new("test", 5, {0, 244, 65})
+  self.player = Player:new("test", 5, { 0, 244, 65 })
 end
 
 function Playertest:testName()
@@ -49,7 +67,7 @@ function Playertest:testMovementSpeed()
 end
 
 function Playertest:testSprite()
-  lu.assertEquals(self.player.get_sprite(), {0, 244, 65})
+  lu.assertEquals(self.player.get_sprite(), { 0, 244, 65 })
 end
 
 function Playertest:testHealth()
@@ -61,22 +79,16 @@ function Playertest:testHealth()
 end
 
 function Playertest:testPosition()
-  lu.assertEquals({self.player.get_position().x, self.player.get_position().y}, {50, 50})
+  lu.assertEquals({ self.player.get_position().x, self.player.get_position().y }, { 50, 50 })
   self.player.set_position(25, 34)
-  lu.assertEquals({self.player.get_position().x, self.player.get_position().y}, {25, 34})
-  self.player.change_position_by_amount(-25,-34)
-  lu.assertEquals({self.player.get_position().x, self.player.get_position().y}, {0, 0})
+  lu.assertEquals({ self.player.get_position().x, self.player.get_position().y }, { 25, 34 })
+  self.player.change_position_by_amount(-25, -34)
+  lu.assertEquals({ self.player.get_position().x, self.player.get_position().y }, { 0, 0 })
 end
 
+-- visually inspect this one
 function Playertest:testParsePlayer()
   lu.assertEquals(self.player.parsePlayer(self.player.toString()), self.player)
-end
-
-Savetest = {}
-function Savetest:testsave()
-end
-
-function Savetest:loadfile()
 end
 
 os.exit(lu.LuaUnit.run())
