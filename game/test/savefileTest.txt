@@ -1,0 +1,7 @@
+Valid Inputs:
+The only valid input is nothing for 'Loadfile', and any valid game state for 'Savefile'
+
+Valid Outputs:
+The return value for 'Savefile' is nil, however it does write encoded information (such as player attributes and the map) to a file.
+'Loadfile' returns 'nil, error' if something unexpected occurs when reading the save file. Otherwise, returns Gamestate:new(map, player):dump()
+    which will load the save file and run the game.
