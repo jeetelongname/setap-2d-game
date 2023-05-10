@@ -1,3 +1,11 @@
 ./tex: has all the files related to the write up
 
 ./game has all of the game related files including assets and so on:
+    within game we have
+    - game/deps contains third party librarys not written by us, these have been
+      cited in our report
+    - game/lib contains files we have written. these are usually helpers and
+      types we then use in
+    - game/game. these are game related modules that all export a similar
+      interface. with an update and draw function
+    - game/test contains our unit tests and test plans for more visual elements
