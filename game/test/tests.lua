@@ -1,4 +1,5 @@
 local lu = require("deps.luaunit")
+local json = require("deps.dkjson")
 local Maptools = require("lib.map")
 local Playertools = require("lib.player")
 
@@ -67,7 +68,9 @@ function Playertest:testPosition()
   lu.assertEquals({self.player.get_position.x, self.player.get_position().y}, {0, 0})
 end
 
-function 
+function Playertest:testParsePlayer()
+  lu.assertEquals(self.player.parsePlayer(self.player.toString()), self.player)
+end
 
 Savetest = {}
 function Savetest:testsave()
