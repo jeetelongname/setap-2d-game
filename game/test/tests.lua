@@ -10,22 +10,30 @@ function MapTest:testLength()
   lu.assertEquals(#self.map.tiles, 100)
 end
 
-function MapTest:toString()
-  local dummyObj = {
-    tiles = {},
-    size  = 100
-  }
+function MapTest:testTileStr()
+  local tile = self.map:get(1, 1)
+  lu.assertEquals(tile:toString(),
+    [[{
+  "character":false,
+  "is_noised":false,
+  "type":1
+}]])
+  -- code
+end
 
-  for i = 1, 100 do
-    dummyObj.tiles[i] = {}
-    for j = 1, 100 do
-      dummyObj.tiles[i][j] = Tiles:new()
-    end
-  end
+Gametest = {}
+function Gametest:testBound()
+  local outOfBound = require("game.game").private.outOfBound
 
+  lu.assertEquals(outOfBound { x = 101, y = 101 }, true)
+  lu.assertEquals(outOfBound { x = 0, y = 0 }, false)
+end
 
+Savetest = {}
+function Savetest:testsave()
+end
 
-  lu.assertEquals(self.map:toString(),)
+function Savetest:loadfile()
 end
 
 os.exit(lu.LuaUnit.run())
