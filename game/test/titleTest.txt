@@ -1,7 +1,7 @@
 Valid Inputs:
-
+the only valid states are {} or {start = true}
 
 Valid Outputs:
-Types.modules.title (the title module, returns if no other game states are selected)
-Types.modules.map (the map module, which will initialize the map)
-Types.modules.game (the game module, which will allow the player to play the game)
+Types.modules.title (the title module, returns if no other game states are selected. state will equal {} or {start = true})
+Types.modules.map (the map module, which will initialize the map. only valid state should be {})
+Types.modules.game (the game module, which will allow the player to play the game. Only valid state should be {gamestate = gamestate})
