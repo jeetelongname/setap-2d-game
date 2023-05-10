@@ -10,10 +10,12 @@ function Map:new(iobj)
         is_generated = false
     }
 
-    for i = 1, obj.size do
-        obj.tiles[i] = {}
-        for j = 1, obj.size do
-            obj.tiles[i][j] = Tiles:new()
+    if not iobj then
+        for i = 1, obj.size do
+            obj.tiles[i] = {}
+            for j = 1, obj.size do
+                obj.tiles[i][j] = Tiles:new()
+            end
         end
     end
 
@@ -88,7 +90,6 @@ end
 
 local function parseMap(mapstr)
     local mapobj = Json.decode(mapstr)
-    print(mapobj.size)
     local tiles = {}
     for y, row in ipairs(mapobj.tilestrs) do
         tiles[y] = {}
@@ -96,7 +97,8 @@ local function parseMap(mapstr)
             tiles[y][x] = parseTile(tile)
         end
     end
-    return Map:new({ tiles = tiles, size = mapobj.size, is_generated = mapobj.is_generated })
+
+    return Map:new { tiles = tiles, size = mapobj.size, is_generated = mapobj.is_generated }
 end
 
 return { TilesType = TilesType, Map = Map, Tiles = Tiles, TileColour = TileColour, parseMap = parseMap }
