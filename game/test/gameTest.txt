@@ -1,0 +1,11 @@
+Valid Inputs:
+the valid states are: {gamestate = gamestate} and {map = map, gamestate = nil}
+
+Valid Outputs:
+Types.modules.quit (this will exit out of the application. The only valid state is {})
+Types.modules.game (this will output the data needed for the next game loop. The only valid state value
+                    is {gamestate = gamestate:dump()})
+
+Valid player locations:
+The player cannot go outside of the map (100x100 tiles)
+the player cannot be on top of any blue tiles.
