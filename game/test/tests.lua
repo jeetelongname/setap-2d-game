@@ -57,15 +57,15 @@ function Playertest:testHealth()
   self.player.set_health(50)
   lu.assertEquals(self.player.get_health(), 50)
   self.player.change_health(-20)
-  lu.asserEquals(self.player.get_health(), 10)
+  lu.assertEquals(self.player.get_health(), 10)
 end
 
 function Playertest:testPosition()
-  lu.assertEquals({self.player.get_position.x, self.player.get_position().y}, {50, 50})
+  lu.assertEquals({self.player.get_position().x, self.player.get_position().y}, {50, 50})
   self.player.set_position(25, 34)
-  lu.assertEquals({self.player.get_position.x, self.player.get_position().y}, {25, 34})
+  lu.assertEquals({self.player.get_position().x, self.player.get_position().y}, {25, 34})
   self.player.change_position_by_amount(-25,-34)
-  lu.assertEquals({self.player.get_position.x, self.player.get_position().y}, {0, 0})
+  lu.assertEquals({self.player.get_position().x, self.player.get_position().y}, {0, 0})
 end
 
 function Playertest:testParsePlayer()
