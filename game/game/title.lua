@@ -8,11 +8,11 @@ local black = { 0, 0, 0 }
 -- when clicked, return true to start the game
 local startButton = Button:new { text = { black, "Start Game" }, x = 300, y = 250 }
 
--- this button toggles a message, its means to be a bit more of a full represenation of how to use the buttons
 local loadButton = Button:new { text = { black, "Load last game" }, x = 300, y = 320 }
 
 local quitButton = Button:new { text = { black, "Exit" }, x = 300, y = 390 }
 
+-- this is a function that checks the state of the titlescreen. It has two valid states either empty table or start = true.
 M.update = function(state)
   local start = state.start or startButton:check()
   local load = loadButton:check()
