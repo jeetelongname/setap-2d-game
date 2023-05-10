@@ -58,7 +58,9 @@ function Player:new(name, movementSpeed, sprite)
 
         set_movementSpeed = function(value)
             movementSpeed = value
-        end
+        end,
+
+        toString = function() return "player stub" end
 
     }
     self.__index = self
@@ -66,6 +68,7 @@ function Player:new(name, movementSpeed, sprite)
 
 end
 
+return Player
 
 -- Player1 = Player:new('Jude')
 -- print(Player1.get_name())

@@ -7,7 +7,16 @@ local steps = {
 Types = require("lib.types")
 
 local current = Types.modules.title
+function love.load()
+    local GameState = require("gamestate")
+    local Map = require("lib.map")
+    local Player = require("lib.player")
+    local SaveFile = require("lib.savefile")
+    local gameState = GameState:new(Map.Map:new(), Player:new())
 
+    SaveFile.Savefile(gameState)
+    print("done")
+end
 function love.update()
     if love.keyboard.isDown('q') then
         love.event.push('quit')
@@ -19,6 +28,7 @@ function love.update()
     else
         current = nextModule
     end
+    print ("savefile.lua")
 end
 
 -- Draw a coloured rectangle.

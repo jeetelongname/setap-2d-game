@@ -1,13 +1,12 @@
-require "player"
-require "map"
+require "lib.player"
+require "lib.map"
 
 Gamestate = {}
 
-function Gamestate:new(map, player)
+function Gamestate:new(initmap, initplayer)
 
-    local map = {}
-    local player = {}
-    
+    local map = initmap
+    local player = initplayer
     local obj = {
 
         get_map = function()
@@ -27,9 +26,10 @@ function Gamestate:new(map, player)
         end
 
     }
+
     setmetatable(obj, self)
     self.__index = self
-
+    return obj
 end
 
 return Gamestate

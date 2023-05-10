@@ -21,10 +21,12 @@ function Map:new()
     setmetatable (obj,self)
     self.__index = self
 
-    return obj 
+    return obj
 
 end
-
+function Map:toString()
+    return "map stub"
+end
 
 TilesType = {
 
