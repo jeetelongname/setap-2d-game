@@ -1,0 +1,7 @@
+Valid Inputs:
+the only valid state is {}
+
+Valid Outputs:
+Types.modules.map (the map module, which return itself if the map isn't fully generated. The only valid state is {}
+Types.modules.game (the game module, which will start the main game loop and allow the player to play the game.
+                    The only valid state is { map = map, gamestate = nil })
