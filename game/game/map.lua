@@ -19,7 +19,7 @@ local baseY = 10000 * love.math.random()
 -- play with these for smootheness. the larger the value the gritter the map
 local gradX = .1
 local gradY = .05
-
+-- this is a function that checks the state of the map. It has only one valid states which is empty table.
 function M.update(_state)
   local done = false
 
