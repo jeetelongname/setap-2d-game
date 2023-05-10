@@ -1,5 +1,5 @@
 local M = {}
-
+M.private = {} -- to allow for unit testing
 local Types = require("lib.types")
 local Gamestate = require("lib.gamestate")
 local Player = require("lib.player")
@@ -19,7 +19,7 @@ local tileBorder = 1
 local xMin = 50
 local yMin = 50
 
-local function outOfBound(pos)
+function M.private.outOfBound(pos)
   local x = pos.x
   local y = pos.y
   local mapSize = gamestate:get_map().size
@@ -37,10 +37,6 @@ local function outOfBound(pos)
 end
 
 M.update = function(state)
-  if not gamestate then
-    return
-  end
-
   local pred = true -- quit predicate, yet to be sorted
 
   -- init gamestate for this loop
@@ -58,17 +54,17 @@ M.update = function(state)
   local posPointer = gamestate:get_player():get_position()
   local oldPos = { x = posPointer.x, y = posPointer.y }
 
-  if isDown("up") then
+  if isDown("up") or isDown("w") then
     gamestate:get_player().change_position_by_amount(0, -1)
-  elseif isDown("down") then
+  elseif isDown("down") or isDown("s") then
     gamestate:get_player().change_position_by_amount(0, 1)
-  elseif isDown("left") then
+  elseif isDown("left") or isDown("a") then
     gamestate:get_player().change_position_by_amount(-1, 0)
-  elseif isDown("right") then
+  elseif isDown("right") or isDown("d") then
     gamestate:get_player().change_position_by_amount(1, 0)
   end
 
-  if outOfBound(gamestate:get_player():get_position()) then
+  if M.private.outOfBound(gamestate:get_player():get_position()) then
     gamestate:get_player().set_position(oldPos.x, oldPos.y)
   end
 
