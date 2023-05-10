@@ -4,7 +4,6 @@ local Types = require("lib.types")
 local Button = require("lib.button")
 local Save = require("lib.savefile")
 
-
 local black = { 0, 0, 0 }
 -- when clicked, return true to start the game
 local startButton = Button:new { text = { black, "Start Game" }, x = 300, y = 250 }
@@ -25,17 +24,20 @@ M.update = function(state)
   elseif load then
     -- load a game
     local gstate, error = Save.LoadGame()
+
     -- handle an error by just starting a new game
     if error then
-      love.window.showMessageBox("Error when loading save",
+      love.window.showMessageBox(
+        "Error when loading save",
         tostring(error) .. " Starting new game",
         "info",
-        true)
+        true
+      )
 
       return Types.modules.title, { start = true }
     end
     -- jump into the game module with the loaded state if all is well
-    return Types.modules.game { gamestate = gstate }
+    return Types.modules.game, { gamestate = gstate }
   elseif quit then
     return Types.modules.quit, {}
   else
