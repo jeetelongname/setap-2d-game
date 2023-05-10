@@ -60,7 +60,7 @@ function M.private.performQuit()
 
   return false
 end
--- this is a function that update the state of the game. It has 3 valid states which are initializing game state, handling movment,and calculating the grid. 
+-- this is a function that update the state of the game. It has three valid states which are initializing game state, handling movment,and calculating the grid. 
 M.update = function(state)
   -- init gamestate for this loop
   if state.gamestate then
