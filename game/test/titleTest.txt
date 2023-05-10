@@ -1,0 +1,7 @@
+Valid Inputs:
+
+
+Valid Outputs:
+Types.modules.title (the title module, returns if no other game states are selected)
+Types.modules.map (the map module, which will initialize the map)
+Types.modules.game (the game module, which will allow the player to play the game)
