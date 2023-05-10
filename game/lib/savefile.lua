@@ -19,7 +19,7 @@ function M.Savefile(gameState)
 end
 
 function M.LoadGame()
-    -- read in savefile.txt
+    -- reading in savefile.txt
     local data, error = love.filesystem.read(filename)
 
     -- if there is an error, just let the caller handle it
