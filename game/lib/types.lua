@@ -1,5 +1,6 @@
 local M = {}
 
+-- Modules is an enum which holds the index of all of the modules we use
 M.modules = {
   quit  = -1,
   title = 1,
@@ -9,6 +10,10 @@ M.modules = {
 
 M.Point = {}
 
+-- A convenice wrapper around a point, takes in
+-- obj: { number, number } | nil
+-- x: number
+-- y: number
 function M.Point:new(obj, x, y)
   obj = obj or {}
   setmetatable(obj, self)
@@ -20,10 +25,13 @@ function M.Point:new(obj, x, y)
   return obj
 end
 
+-- returns number, number
 function M.Point:getPosition()
   return self.x, self.y
 end
 
+-- turns point to string,
+--   returns string
 function M.Point:toString()
   return "x: " .. tostring(self.x) .. " y: " .. tostring(self.y)
 end
