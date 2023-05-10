@@ -57,7 +57,7 @@ function Playertest:testHealth()
   self.player.set_health(50)
   lu.assertEquals(self.player.get_health(), 50)
   self.player.change_health(-20)
-  lu.assertEquals(self.player.get_health(), 10)
+  lu.assertEquals(self.player.get_health(), 30)
 end
 
 function Playertest:testPosition()
