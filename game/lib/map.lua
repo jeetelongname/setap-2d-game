@@ -3,6 +3,8 @@ local Tiles = {}
 
 local Json = require("deps.dkjson")
 
+-- Map is a 2d grid of tiles.
+-- Takes iobj: {tiles: { Tiles }, size: number, is_generated: boolean} | nil
 function Map:new(iobj)
     local obj = iobj or {
         tiles = {},
@@ -25,6 +27,7 @@ function Map:new(iobj)
     return obj
 end
 
+-- Tiletypes is an enum that contains all the Tile Types
 TilesType = {
     grass = 1,
     water = 2,
@@ -40,6 +43,11 @@ TileColour = {
     { 1, 1, 1 }
 }
 
+-- get returns a specfic tile based on the row (y) and column (x)
+-- take
+-- row: number
+-- column: number
+-- returns Tile
 function Map:get(row, column)
     local thisRow = self.tiles[row]
     if thisRow == nil then
@@ -49,10 +57,18 @@ function Map:get(row, column)
     end
 end
 
+-- sets a tile value at position, row, column
+-- takes
+-- row: number
+-- column: number
+-- tile: Tiles
 function Map:set(row, column, tile)
     self.tiles[row][column] = tile
 end
 
+-- returns a string representation of a map, used for saving the map
+-- takes nothing
+-- returns String
 function Map:toString()
     local tilestrs = {}
     for y, row in ipairs(self.tiles) do
@@ -65,6 +81,8 @@ function Map:toString()
     return Json.encode({ tilestrs = tilestrs, size = self.size, is_generated = self.is_generated }, { indent = true })
 end
 
+-- A tile is a single position in the grid
+-- takes iobj: { item: Item | nil, character: boolean, type: TilesType, noise: number | nil, is_noised: boolean } | nil
 function Tiles:new(iobj)
     local obj = iobj or {
         item = nil,
@@ -80,14 +98,23 @@ function Tiles:new(iobj)
     return obj
 end
 
+-- Turns a tile into a string
+-- takes nothing
+-- returns a string
 function Tiles:toString()
     return Json.encode(self, { indent = true })
 end
 
+-- a raise function that turns a string into a tile,
+-- takes a string
+-- returns a tile
 local function parseTile(tilestr)
     return Tiles:new(Json.decode(tilestr))
 end
 
+-- a raise function that turns a string into a map,
+-- takes a string
+-- returns a map
 local function parseMap(mapstr)
     local mapobj = Json.decode(mapstr)
     local tiles = {}
