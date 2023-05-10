@@ -91,7 +91,7 @@ function Playertest:testInventory()
   for i = 1, 20 do
     testList[i] = -1
   end
-  lu.assertEquals(self.player.inventory.get_inventory_all(), 
+  lu.assertEquals(self.player.inventory.get_inventory_all(), testList)
 end
   
 -- visually inspect this one
