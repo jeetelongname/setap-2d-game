@@ -2,10 +2,46 @@
 
 ./game has all of the game related files including assets and so on:
     within game we have
-    - game/deps contains third party librarys not written by us, these have been
+    - game/deps contains third party libraries not written by us, these have been
       cited in our report
     - game/lib contains files we have written. these are usually helpers and
       types we then use in
     - game/game. these are game related modules that all export a similar
       interface. with an update and draw function
     - game/test contains our unit tests and test plans for more visual elements
+
+INSTALL
+
+to run this game you need to install love2d from https://love2d.org/ or if on
+linux check your distributions package manager. 
+
+RUN
+
+to run the game you need to cd into the project root and then use the command
+``` 
+/path/to/love game 
+```
+this will start the game which you can then play.
+
+NOTE: on linux when you install love2d from a package manager it will be added
+to your path and you should be able to run
+```
+love game
+```
+
+NOTE: on macos when installing you need to allow love to be run as a secure
+package. You will still need to find the location of the executable.
+
+TEST 
+
+to run the tests you need to install the lua interprter from
+https://www.lua.org/download.html
+
+to run the test you need to cd into the `game` folder in the project root and
+then run the command
+
+``` shell
+lua test/tests.lua PlayerTest MapTest Gametest
+```
+
+to run the test suite
